@@ -171,6 +171,26 @@ object ConnectionManager {
             }
         }
 
+        override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
+            with(gatt) {
+                if (status == BluetoothGatt.GATT_SUCCESS) {
+                    listeners.forEach { this?.let { it1 ->
+                        it.get()?.onConnectionSetupComplete?.invoke(
+                            it1
+                        )
+                    } }
+                } else {
+                    gatt?.let {
+                        teardownConnection(it.device)
+                    }
+                }
+            }
+
+            if (pendingOperation is Connect) {
+                signalEndOfOperation()
+            }
+        }
+
         override fun onCharacteristicRead(
             gatt: BluetoothGatt,
             characteristic: BluetoothGattCharacteristic,

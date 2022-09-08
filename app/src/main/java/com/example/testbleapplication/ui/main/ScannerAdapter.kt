@@ -38,7 +38,7 @@ class ScannerAdapter(
                 deviceName.text =
                     data.device.name ?: root.context.getString(R.string.label_unknown_source)
                 address.text = data.device.address
-                Timber.d("uuids: ${data.device.uuids.size}")
+                //Timber.d("uuids: ${data.device.uuids.size}")
             }
             binding.root.setOnClickListener {
                 onClickListener.invoke(data)

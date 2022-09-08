@@ -11,8 +11,9 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(SingletonComponent::class) // Installs AppModule in the generate SingletonComponent.
 class AppModule {
+    // @Singleton providers are only called once per SingletonComponent instance.
     @Provides
     @Singleton
     fun provideBLEManager(@ApplicationContext context: Context): BLEDeviceManager {
